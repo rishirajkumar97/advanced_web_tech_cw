@@ -1,0 +1,20 @@
+name: Docker Image CI For Auth Service
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: |
+        cd src/authenticate_service # Adjust this path to your Rails application directory
+        docker build . --file Dockerfile.prod --tag auth_service:$(date +%s)
