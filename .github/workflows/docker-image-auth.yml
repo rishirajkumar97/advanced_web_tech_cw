@@ -1,0 +1,24 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'src/authenticate_service/**' # Trigger only if changes occur under src/authenticate-service
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'src/authenticate_service/**' # Trigger only if changes occur under src/authenticate-service
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: |
+        cd src/authenticate_service # Adjust this path to your Rails application directory
+        docker build . --file Dockerfile --tag auth-service:$(date +%s)
