@@ -14,3 +14,16 @@
 #       methods: [:get, :post, :put, :patch, :delete, :options, :head]
 #   end
 # end
+
+# Adding Cors for
+
+Rails.application.config.middleware.insert_before 0, Rack::Cors do
+  allow do
+    # origins "example.com" TO Replace with Frontend Domain URL
+    resource '/api/*',
+             headers: %w[Authorization],
+             methods: :any,
+             expose: %w[Authorization],
+             max_age: 600
+  end
+end
