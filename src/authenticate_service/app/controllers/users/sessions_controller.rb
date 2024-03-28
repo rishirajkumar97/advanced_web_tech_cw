@@ -6,7 +6,8 @@ class Users::SessionsController < Devise::SessionsController
   def validate
     if request.headers['Authorization'].present?
       jwt_payload = JWT.decode(request.headers['Authorization'].split(' ').last, ENV['DEVISE_JWT_SECRET_KEY']).first
-      @current_user = User.find(jwt_payload['sub'])
+      # TODO Add EXP timing for first fallback
+      @current_user = User.find_by(id: jwt_payload['sub'], jti: jwt_payload['jti'])
     end
 
     if @current_user
