@@ -30,5 +30,5 @@ jobs:
     - name: Build the Docker image
       run: |
         cd src/authenticate_service # Adjust this path to your Rails application directory
-        docker build . --file Dockerfile --tag  ghcr.io/rishirajkumar97/auth-service:$(date +%s)
-        docker push ghcr.io/rishirajkumar97/auth-service:$(date +%s)
+        docker build . --file Dockerfile --tag  ghcr.io/rishirajkumar97/auth-service:latest
+        docker push ghcr.io/rishirajkumar97/auth-service:latest
