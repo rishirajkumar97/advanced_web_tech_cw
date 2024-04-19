@@ -1,27 +1,55 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Category from '@/views/Category.vue';
+import NotFound from '@/views/NotFound.vue';
 
-Vue.use(VueRouter)
+import chart from '@/views/chart.vue';
 
-const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
+import authPage from '@/views/signup/auth-page.vue';
+/* import profile from '@/views/signup/profile.vue'; */
+
+Vue.use(Router);
+
+export default new Router({
+  mode: 'history',
+  base: process.env.BASE_URL,
+  linkActiveClass: 'active',
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }
+    return { y: 0 };
   },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
-]
+  routes: [
+    {
+      path: '/',
+      redirect: '/category/front-end',
+    },
+    {
+      path: '/category/:id',
+      name: 'category',
+      component: Category,
+    },
+    
+    {
+      path: '/chart',
+      name: 'chart',
+      component: chart,
+    },
 
-const router = new VueRouter({
-  routes
-})
+{
+    path: '/auth',
+    name: 'authPage',
+    component: authPage
+},
 
-export default router
+
+    {
+      path: '*',
+      component: NotFound,
+    },
+
+
+
+  ],
+});
