@@ -4,12 +4,14 @@ require 'faraday'
 require 'json'
 
 class AlphaVantageService
+  LIMIT=1000
+  ALPHA_VANTAGE_API='https://www.alphavantage.co'
   def initialize
     @api_key = ENV['ALPHA_VANTAGE_API_KEY']
-    @connection = Faraday.new(url: 'https://www.alphavantage.co')
+    @connection = Faraday.new(url: ALPHA_VANTAGE_API)
   end
 
-  def get_news_sentiment(symbol, limit = 1000)
+  def get_news_sentiment(symbol, limit = LIMIT)
     response = @connection.get("/query", {
       function: 'NEWS_SENTIMENT',
       symbols: symbol,
@@ -26,7 +28,7 @@ class AlphaVantageService
     if response.status == 200
       JSON.parse(response.body)
     else
-      { error: "Error fetching data from Alpha Vantage API: Status #{response.status}" }
+      { error: "Error fetching data from Alpha Vantage API: Status #{response.body}" }
     end
   end
 end
