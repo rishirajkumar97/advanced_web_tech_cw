@@ -55,8 +55,10 @@ jobs:
       - name: List contents of the authenticate_service directory
         run: ls
       
-      - name: print env variable
-        run: echo ${AUTH_DATABASE_URL}
+      - name: Set environment variables
+        run: |
+          echo "AUTH_DATABASE_URL=${{ secrets.AUTH_DATABASE_URL }}" >> $GITHUB_ENV
+
 
       - name: Deploy to Google App Engine
         run: |
