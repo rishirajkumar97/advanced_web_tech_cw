@@ -32,7 +32,7 @@ RUN bundle install --without development test && bundle clean --force
 
 # Copy application code and precompile assets
 COPY . /rails
-RUN bundle exec bootsnap precompile --gemfile && bundle exec rake assets:precompile
+RUN bundle exec bootsnap precompile --gemfile && bundle exec bootsnap precompile app/ lib/
 
 # Final stage, setup for running the application
 FROM base as final
