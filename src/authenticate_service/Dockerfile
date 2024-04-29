@@ -25,6 +25,8 @@ RUN apt update -y && apt install ruby-dev -y
 
 RUN apt install libpq-dev -y
 
+RUN apt-get update -qq && apt-get install -y libpq-dev
+
 # Install application gems
 COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
