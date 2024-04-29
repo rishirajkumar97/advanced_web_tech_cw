@@ -55,10 +55,13 @@ jobs:
       - name: List contents of the authenticate_service directory
         run: ls
       
-      - name: Set environment variables
-        run: |
-          echo "AUTH_DATABASE_URL=${{ secrets.AUTH_DATABASE_URL }}" >> $GITHUB_ENV
-
+      - uses: ikuanyshbekov/app-yaml-env-compiler@v1.0
+        with:
+          path: "src/authenticate_service/app.yaml"
+        env:
+          AUTH_DATABASE_URL: ${{ secrets.AUTH_DATABASE_URL }}
+          DEVISE_JWT_SECRET_KEY: ${{ secrets.DEVISE_JWT_SECRET_KEY }}
+          SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}   
 
       - name: Deploy to Google App Engine
         run: |
