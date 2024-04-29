@@ -1,12 +1,14 @@
 name: Deploy to Google Cloud From GHCR
 
 on:
-  workflow_run:
-    workflows: ["Docker Image for Auth Service CI"]  # The name of your CI workflow
-    types:
-      - completed  # Triggers when the CI workflow has completed
-    branches:
-      - main
+  # workflow_run:
+  #   workflows: ["Docker Image for Auth Service CI"]  # The name of your CI workflow
+  #   types:
+  #     - completed  # Triggers when the CI workflow has completed
+  #   branches:
+  #     - main
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   push_to_gcr:
