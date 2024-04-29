@@ -2,7 +2,7 @@
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
 ARG RUBY_VERSION=3.3.0
-FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
+FROM ruby:$RUBY_VERSION-slim as base
 
 # Rails app lives here
 WORKDIR /rails
@@ -11,64 +11,59 @@ WORKDIR /rails
 ENV RAILS_ENV="production" \
     BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle" \
-    BUNDLE_WITHOUT="development"
+    BUNDLE_WITHOUT="development:test"
 
-
-# Throw-away build stage to reduce size of final image
-FROM base as build
-
-# Install packages needed to build gems
+# Install packages needed to build gems and runtime dependencies
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libvips pkg-config
-
-RUN apt update -y && apt install ruby-dev -y
-
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev
-
-RUN apt-get update -qq && apt-get install -y libpq-dev
-
-RUN apt-get install -y libpq-dev && ldconfig && find / -name libpq.so.5
-<<<<<<< HEAD
-=======
-
-RUN apt-get update -qq && apt-get install -y libpq-dev
->>>>>>> origin/main
+    apt-get install --no-install-recommends -y \
+        build-essential \
+        curl \
+        git \
+        libpq-dev \
+        libsqlite3-0 \
+        libvips \
+        pkg-config \
+        ruby-dev && \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
-RUN bundle install && \
-    rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
-    bundle exec bootsnap precompile --gemfile
+RUN bundle install --without development test && \
+    bundle clean --force && \
+    rm -rf ~/.bundle /tmp/* /var/tmp/*
 
 # Copy application code
 COPY . .
 
-# Precompile bootsnap code for faster boot times
-RUN bundle exec bootsnap precompile app/ lib/
+# Precompile assets and bootsnap (if this is a step you need)
+RUN bundle exec bootsnap precompile --gemfile && \
+    bundle exec rake assets:precompile
 
+# Minimize image size by not including build dependencies in the final image
+FROM ruby:$RUBY_VERSION-slim
 
-# Final stage for app image
-FROM base
+WORKDIR /rails
 
-# Install packages needed for deployment
+# Install runtime dependencies only
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libsqlite3-0 libvips && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+    apt-get install --no-install-recommends -y \
+        libpq5 \
+        libsqlite3-0 \
+        libvips && \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev
-
-# Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
 
-# Run and own only the runtime files as a non-root user for security
+# Setup user for security
 RUN useradd rails --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
-USER rails:rails
+    chown -R rails:rails /rails
+
+USER rails
 
 # Entrypoint prepares the database.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
-# Start the server by default, this can be overwritten at runtime
+# Expose port 3000 and start the Rails server
 EXPOSE 3000
-CMD ["./bin/rails", "server"]
+CMD ["rails", "server", "-b", "0.0.0.0"]
