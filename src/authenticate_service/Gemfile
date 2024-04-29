@@ -47,6 +47,7 @@ group :development do
   # gem "spring"
 end
 
+gem 'activerecord-cockroachdb-adapter'
 gem 'devise', '~> 4.9'
 gem 'devise-jwt'
 gem 'dotenv', groups: %i[development test]

@@ -21,6 +21,10 @@ FROM base as build
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git libvips pkg-config
 
+RUN apt update -y && apt install ruby-dev -y
+
+RUN apt install libpq-dev -y
+
 # Install application gems
 COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
