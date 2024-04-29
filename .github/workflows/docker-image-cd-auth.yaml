@@ -35,3 +35,17 @@ jobs:
 
       - name: Push image to Google Artifact Registry
         run: docker push gcr.io/meta-geography-243114/awt_cw/auth-service:latest
+  deploy_to_app_engine:
+    name: Deploy to App Engine
+    runs-on: ubuntu-latest
+    needs: push_to_gcr  # This job runs only after the push_to_gcr job completes
+    steps:
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          service_account_key: ${{ secrets.GCP_DEPLOY }}
+          project_id: meta-geography-243114
+
+      - name: Deploy to Google App Engine
+        run: |
+          gcloud app deploy --image-url=gcr.io/meta-geography-243114/awt_cw/auth-service:latest --quiet
