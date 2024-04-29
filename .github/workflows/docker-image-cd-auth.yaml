@@ -58,6 +58,12 @@ jobs:
       - name: Set environment variables
         run: echo "AUTH_DATABASE_URL=${{ secrets.AUTH_DATABASE_URL }}" >> $GITHUB_ENV
 
+      - name: Set environment variables
+        run: echo "DEVISE_JWT_SECRET_KEY=${{ secrets.DEVISE_JWT_SECRET_KEY }}" >> $GITHUB_ENV
+
+      - name: Set environment variables
+        run: echo "SECRET_KEY_BASE=${{ secrets.SECRET_KEY_BASE }}" >> $GITHUB_ENV
+
       - name: Verify if AUTH_DATABASE_URL is set
         run: |
           if [ -z "${AUTH_DATABASE_URL}" ]; then
