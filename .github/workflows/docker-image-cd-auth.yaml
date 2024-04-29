@@ -56,8 +56,6 @@ jobs:
         run: ls
       
       - uses: ikuanyshbekov/app-yaml-env-compiler@v1.0
-        with:
-          path: "src/authenticate_service/app.yaml"
         env:
           AUTH_DATABASE_URL: ${{ secrets.AUTH_DATABASE_URL }}
           DEVISE_JWT_SECRET_KEY: ${{ secrets.DEVISE_JWT_SECRET_KEY }}
