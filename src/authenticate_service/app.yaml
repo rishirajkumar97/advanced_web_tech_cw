@@ -1,2 +1,15 @@
 runtime: custom
 env: flex
+
+manual_scaling:
+  instances: 1
+
+resources:
+  cpu: 1
+  memory_gb: 2
+  disk_size_gb: 10
+
+env_variables:
+  RAILS_ENV: 'production'
+  DEVISE_JWT_SECRET_KEY: 'b1ca5f9f4913270532014f3ea5b35b67c9795e73332cfd7fbbcba422de9c76f92a7c0277f9a2f203c419e953967ef4d5bc4b0dd4272bd322ee2d1a51d129dff'
+  DATABASE_URL: 'cockroachdb://rishi:mq4KLLPUR6P5fl-P5KKucw@absurd-werebat-13764.8nj.gcp-europe-west1.cockroachlabs.cloud:26257/defaultdb?sslmode=require'
