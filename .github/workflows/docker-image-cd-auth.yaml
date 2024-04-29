@@ -50,6 +50,9 @@ jobs:
       - name: Change to the correct directory
         run: cd src/authenticate_service
 
+      - name: List contents of the authenticate_service directory
+        run: ls
+
       - name: Deploy to Google App Engine
         run: |
           gcloud app deploy src/authenticate_service/app.yaml --image-url=gcr.io/meta-geography-243114/awt_cw/auth-service:latest --quiet
