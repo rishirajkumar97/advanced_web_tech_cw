@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  push_to_gcr:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
