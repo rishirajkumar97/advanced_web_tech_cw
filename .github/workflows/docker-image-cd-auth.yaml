@@ -44,6 +44,9 @@ jobs:
           service_account_key: ${{ secrets.GCP_DEPLOY }}
           project_id: meta-geography-243114
 
+      - name: Change to the correct directory
+        run: cd src/authenticate_service
+
       - name: Deploy to Google App Engine
         run: |
-          gcloud app deploy src/authenticate_service/app.yaml --image-url=gcr.io/meta-geography-243114/awt_cw/auth-service:latest --quiet
+          gcloud app deploy app.yaml --image-url=gcr.io/meta-geography-243114/awt_cw/auth-service:latest --quiet
