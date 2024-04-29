@@ -1,14 +1,14 @@
-name: Docker Image for Auth Service CI
+name: Docker Image For New Service CI
 
 on:
   push:
     branches: [ "main" ]
     paths:
-      - 'src/authenticate_service/**' # Trigger only if changes occur under src/authenticate-service
+      - 'src/fin_webapp/**' # Trigger only if changes occur under src/authenticate-service
   pull_request:
     branches: [ "main" ]
     paths:
-      - 'src/authenticate_service/**' # Trigger only if changes occur under src/authenticate-service
+      - 'src/fin_webapp/**' # Trigger only if changes occur under src/authenticate-service
 
 jobs:
 
@@ -29,6 +29,6 @@ jobs:
         password: ${{secrets.GITHUB_TOKEN}}
     - name: Build the Docker image
       run: |
-        cd src/authenticate_service # Adjust this path to your Rails application directory
-        docker build . --file Dockerfile --tag  ghcr.io/rishirajkumar97/auth-service:latest
-        docker push ghcr.io/rishirajkumar97/auth-service:latest
+        cd src/fin_webapp # Adjust this path to your Rails application directory
+        docker build . --file Dockerfile --tag  ghcr.io/rishirajkumar97/news-service:latest
+        docker push ghcr.io/rishirajkumar97/news-service:latest
