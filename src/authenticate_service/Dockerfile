@@ -23,7 +23,7 @@ RUN bundle install --without development test && \
 
 COPY . /rails
 
-RUN bundle exec rake assets:precompile
+RUN bundle exec bootsnap precompile app/ lib/
 
 FROM base as final
 
