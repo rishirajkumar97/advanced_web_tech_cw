@@ -1,14 +1,13 @@
 name: Deploy to Google Cloud From GHCR
 
 on:
-  # workflow_run:
-  #   workflows: ["Docker Image for Auth Service CI"]  # The name of your CI workflow
-  #   types:
-  #     - completed  # Triggers when the CI workflow has completed
-  #   branches:
-  #     - main
-  pull_request:
-    branches: [ "main" ]
+  workflow_run:
+    workflows: ["Docker Image for Auth Service CI"]  # The name of your CI workflow
+    types:
+      - completed  # Triggers when the CI workflow has completed
+    branches:
+      - main
+  
 
 jobs:
   push_to_gcr:
@@ -47,4 +46,4 @@ jobs:
 
       - name: Deploy to Google App Engine
         run: |
-          gcloud app deploy --image-url=gcr.io/meta-geography-243114/awt_cw/auth-service:latest --quiet
+          gcloud app deploy src/authenticate_service/app.yaml --image-url=gcr.io/meta-geography-243114/awt_cw/auth-service:latest --quiet
