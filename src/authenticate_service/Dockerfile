@@ -45,6 +45,7 @@ COPY --from=builder /usr/local/bundle /usr/local/bundle
 # Copy application code from builder stage
 COPY --from=builder /rails /rails
 
+RUN cd rails
 # Check Rails installation
 RUN rails --version
 
