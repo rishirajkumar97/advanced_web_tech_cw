@@ -37,10 +37,16 @@ RUN bundle exec bootsnap precompile --gemfile && bundle exec bootsnap precompile
 # Final stage, setup for running the application
 FROM base as final
 
+# Set PATH to include directory where gem executables are located
+ENV PATH="/usr/local/bundle/bin:$PATH"
+
 # Copy gems from builder stage
 COPY --from=builder /usr/local/bundle /usr/local/bundle
 # Copy application code from builder stage
 COPY --from=builder /rails /rails
+
+# Check Rails installation
+RUN rails --version
 
 # Create and use a non-root user
 RUN useradd rails --create-home --shell /bin/bash && chown -R rails:rails /rails
