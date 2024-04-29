@@ -52,4 +52,4 @@ jobs:
 
       - name: Deploy to Google App Engine
         run: |
-          gcloud app src/authenticate_service/deploy app.yaml --image-url=gcr.io/meta-geography-243114/awt_cw/auth-service:latest --quiet
+          gcloud app deploy src/authenticate_service/app.yaml --image-url=gcr.io/meta-geography-243114/awt_cw/auth-service:latest --quiet
