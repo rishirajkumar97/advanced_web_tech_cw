@@ -28,6 +28,11 @@ RUN apt-get update -qq && apt-get install -y build-essential libpq-dev
 RUN apt-get update -qq && apt-get install -y libpq-dev
 
 RUN apt-get install -y libpq-dev && ldconfig && find / -name libpq.so.5
+<<<<<<< HEAD
+=======
+
+RUN apt-get update -qq && apt-get install -y libpq-dev
+>>>>>>> origin/main
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
