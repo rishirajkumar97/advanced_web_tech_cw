@@ -1,69 +1,52 @@
-# syntax = docker/dockerfile:1
+# syntax=docker/dockerfile:1
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
 ARG RUBY_VERSION=3.3.0
-FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
+FROM ruby:$RUBY_VERSION-slim as base
 
-# Rails app lives here
-WORKDIR /rails
-
-# Set production environment
+# Set Rails environment
 ENV RAILS_ENV="production" \
     BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development:test"
 
-# Install packages needed to build gems and runtime dependencies
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y \
-        build-essential \
-        curl \
-        git \
-        libpq-dev \
-        libsqlite3-0 \
-        libvips \
-        pkg-config \
-        ruby-dev && \
-    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
-
-# Install application gems
-COPY Gemfile Gemfile.lock ./
-RUN bundle install --without development test && \
-    bundle clean --force && \
-    rm -rf ~/.bundle /tmp/* /var/tmp/*
-
-# Copy application code
-COPY . .
-
-# Precompile assets and bootsnap (if this is a step you need)
-RUN bundle exec bootsnap precompile --gemfile && \
-    bundle exec rake assets:precompile
-
-# Minimize image size by not including build dependencies in the final image
-FROM ruby:$RUBY_VERSION-slim
-
+# Set the working directory
 WORKDIR /rails
 
-# Install runtime dependencies only
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y \
-        libpq5 \
-        libsqlite3-0 \
-        libvips && \
-    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
+# Install packages needed for runtime and build stages
+RUN apt-get update -qq && apt-get install --no-install-recommends -y \
+    build-essential \
+    libpq-dev \
+    libvips \
+    libsqlite3-0
 
-COPY --from=build /usr/local/bundle /usr/local/bundle
-COPY --from=build /rails /rails
+# Begin the build stage
+FROM base as builder
 
-# Setup user for security
-RUN useradd rails --create-home --shell /bin/bash && \
-    chown -R rails:rails /rails
+# Install additional build-time dependencies
+RUN apt-get update -qq && apt-get install -y git pkg-config ruby-dev
 
-USER rails
+# Install Gems
+COPY Gemfile Gemfile.lock ./
+RUN bundle install --without development test && bundle clean --force
 
-# Entrypoint prepares the database.
+# Copy application code and precompile assets
+COPY . /rails
+RUN bundle exec bootsnap precompile --gemfile && bundle exec rake assets:precompile
+
+# Final stage, setup for running the application
+FROM base as final
+
+# Copy gems from builder stage
+COPY --from=builder /usr/local/bundle /usr/local/bundle
+# Copy application code from builder stage
+COPY --from=builder /rails /rails
+
+# Create and use a non-root user
+RUN useradd rails --create-home --shell /bin/bash && chown -R rails:rails /rails
+USER rails:rails
+
+# Entrypoint and command to run the application
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
-
-# Expose port 3000 and start the Rails server
 EXPOSE 3000
 CMD ["rails", "server", "-b", "0.0.0.0"]
