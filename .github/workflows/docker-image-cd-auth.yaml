@@ -1,0 +1,33 @@
+name: Deploy to Google Cloud From GHCR
+
+on:
+  push:
+    branches:
+      - main  # or any other branch or event you want to trigger the deployment
+    paths:
+      - 'src/authenticate_service/**' 
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          service_account_key: ${{ secrets.GCP_DEPLOY }}
+          project_id: meta-geography-243114
+
+      - name: Configure Docker
+        run: gcloud auth configure-docker
+
+      - name: Pull image from GHCR
+        run: docker pull ghcr.io/rishirajkumar97/auth-service:latest
+
+      - name: Tag image for Google Artifact Registry
+        run: docker tag ghcr.io/rishirajkumar97/auth-service:latest gcr.io/meta-geography-243114/awt_cw/auth-service:latest
+
+      - name: Push image to Google Artifact Registry
+        run: docker push gcr.io/meta-geography-243114/awt_cw/auth-service:latest
