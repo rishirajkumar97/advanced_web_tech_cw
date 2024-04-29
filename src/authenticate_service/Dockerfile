@@ -23,9 +23,11 @@ RUN apt-get update -qq && \
 
 RUN apt update -y && apt install ruby-dev -y
 
-RUN apt install libpq-dev -y
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev
 
 RUN apt-get update -qq && apt-get install -y libpq-dev
+
+RUN apt-get install -y libpq-dev && ldconfig && find / -name libpq.so.5
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
@@ -47,6 +49,11 @@ FROM base
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y curl libsqlite3-0 libvips && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev
+
+RUN ldd /usr/local/bundle/ruby/3.3.0/gems/pg-1.5.6/lib/pg_ext.so
+
 
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
