@@ -6,10 +6,10 @@
 #
 default: &default
   adapter: cockroachdb
-  url: <%= ENV["AUTH_DATABASE_URL"] %>
+  url: <%= ENV.fetch("AUTH_DATABASE_URL") %>
 development:
   <<: *default
 
 production:
   adapter: cockroachdb
-  url: <%= ENV["AUTH_DATABASE_URL"] %>
+  url: <%= ENV.fetch("AUTH_DATABASE_URL") %>
