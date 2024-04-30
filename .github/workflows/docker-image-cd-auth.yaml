@@ -66,9 +66,12 @@ jobs:
 
       - name: Setup environment variables in app.yaml
         run: |
-          echo "  AUTH_DATABASE_URL: '${{ secrets.AUTH_DATABASE_URL }}'" >> src/authenticate_service/app.yaml
-          echo "  DEVISE_JWT_SECRET_KEY: '${{ secrets.DEVISE_JWT_SECRET_KEY }}'" >> src/authenticate_service/app.yaml
-          echo "  SECRET_KEY_BASE: '${{ secrets.SECRET_KEY_BASE_AUTH }}'" >> src/authenticate_service/app.yaml
+          echo "env_variables:" >> src/authenticate_service/app.yaml
+          echo "  RAILS_ENV: 'production'" >> src/authenticate_service/app.yaml
+          echo "  AUTH_DATABASE_URL: ${{ secrets.AUTH_DATABASE_URL }}" >> src/authenticate_service/app.yaml
+          echo "  DEVISE_JWT_SECRET_KEY: ${{ secrets.DEVISE_JWT_SECRET_KEY }}" >> src/authenticate_service/app.yaml
+          echo "  SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE_AUTH }}" >> src/authenticate_service/app.yaml
+
 
       - name: Deploy to Google App Engine
         run: |
