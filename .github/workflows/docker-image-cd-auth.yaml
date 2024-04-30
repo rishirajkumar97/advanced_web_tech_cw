@@ -64,14 +64,11 @@ jobs:
       - name: Set environment variables
         run: echo "SECRET_KEY_BASE=${{ secrets.SECRET_KEY_BASE }}" >> $GITHUB_ENV
 
-      - name: Verify if AUTH_DATABASE_URL is set
+      - name: Setup environment variables in app.yaml
         run: |
-          if [ -z "${AUTH_DATABASE_URL}" ]; then
-            echo "AUTH_DATABASE_URL is not set"
-            exit 1
-          else
-            echo "AUTH_DATABASE_URL is set"
-          fi   
+          echo "  AUTH_DATABASE_URL: '${{ secrets.AUTH_DATABASE_URL }}'" >> src/authenticate_service/app.yaml
+          echo "  DEVISE_JWT_SECRET_KEY: '${{ secrets.DEVISE_JWT_SECRET_KEY }}'" >> src/authenticate_service/app.yaml
+          echo "  SECRET_KEY_BASE: '${{ secrets.SECRET_KEY_BASE_AUTH }}'" >> src/authenticate_service/app.yaml
 
       - name: Deploy to Google App Engine
         run: |
