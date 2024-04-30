@@ -10,8 +10,6 @@ default: &default
   timeout: 5000
   adapter: cockroachdb
   port: 26257
-  host: <hostname>
-  user: <username>
 
 development:
   <<: *default
