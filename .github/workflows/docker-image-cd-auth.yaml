@@ -72,7 +72,6 @@ jobs:
           echo "  DEVISE_JWT_SECRET_KEY: ${{ secrets.DEVISE_JWT_SECRET_KEY }}" >> src/authenticate_service/app.yaml
           echo "  SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE_AUTH }}" >> src/authenticate_service/app.yaml
 
-
       - name: Deploy to Google App Engine
         run: |
           gcloud app deploy src/authenticate_service/app.yaml --image-url=gcr.io/meta-geography-243114/awt_cw/auth-service:latest --quiet
