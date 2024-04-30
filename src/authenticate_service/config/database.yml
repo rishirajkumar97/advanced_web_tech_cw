@@ -12,4 +12,4 @@ development:
 
 production:
   adapter: cockroachdb
-  url: "cockroachdb://rishi:mq4KLLPUR6P5fl-P5KKucw@absurd-werebat-13764.8nj.gcp-europe-west1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full"
+  url: "cockroachdb://rishi:mq4KLLPUR6P5fl-P5KKucw@absurd-werebat-13764.8nj.gcp-europe-west1.cockroachlabs.cloud:26257/defaultdb?sslmode=require"
