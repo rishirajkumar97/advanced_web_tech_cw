@@ -9,6 +9,12 @@ ENV RAILS_ENV=production \
     GEM_HOME=/usr/local/bundle \
     PATH="/usr/local/bundle/bin:$PATH"
 
+# In Dockerfile
+ENV AUTH_DATABASE_URL=${AUTH_DATABASE_URL}
+
+# In Dockerfile
+ENV DEVISE_JWT_SECRET_KEY=${DEVISE_JWT_SECRET_KEY}
+
 WORKDIR /rails
 
 RUN apt-get update -qq && \
