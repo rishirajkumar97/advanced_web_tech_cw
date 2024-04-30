@@ -12,7 +12,7 @@ on:
   
 
 jobs:
-  push_to_gcr:
+  push_to_gcr_news_service:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
