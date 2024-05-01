@@ -65,9 +65,9 @@ jobs:
       - name: Setup environment variables in app.yaml
         run: |
           echo "env_variables:" >> src/authenticate_service/app.yaml
-          echo "  RAILS_ENV: 'production'" >> src/authenticate_service/app.yaml
-          echo "  ALPHA_VANTAGE_API_KEY: ${{ secrets.ALPHA_VANTAGE_API_KEY }}" >> src/authenticate_service/app.yaml
-          echo "  SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE_NEWS }}" >> src/authenticate_service/app.yaml
+          echo "  RAILS_ENV: 'production'" >> src/fin_webapp/app.yaml
+          echo "  ALPHA_VANTAGE_API_KEY: ${{ secrets.ALPHA_VANTAGE_API_KEY }}" >> src/fin_webapp/app.yaml
+          echo "  SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE_NEWS }}" >> src/fin_webapp/app.yaml
       - name: Deploy to Google App Engine
         run: |
           gcloud app deploy src/fin_webapp/app.yaml --image-url=gcr.io/meta-geography-243114/awt_cw/news-service:latest --quiet
