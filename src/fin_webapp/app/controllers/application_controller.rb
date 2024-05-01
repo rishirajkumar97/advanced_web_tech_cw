@@ -1,14 +1,29 @@
-class ApplicationController < ActionController::API
-    before_action :validate_token
+# frozen_string_literal: true
 
-    private
-  
-    def validate_token
-      response = Faraday.get('http://meta-geography-243114.nw.r.appspot.com/validate_token') do |req| # Endpoint of the Main Service
-        req.headers['Authorization'] = request.headers['Authorization']
-      end
-  
-      # Check if the response status is 200 OK
-      render json: { error: 'Unauthorized' }, status: :unauthorized unless response.status == 200
+# Application Controller to have before or after action blocks
+class ApplicationController < ActionController::API
+  before_action :validate_token
+
+  private
+
+  def validate_token
+    token = request.headers['Authorization']
+    conn = Faraday.new(url: 'https://meta-geography-243114.nw.r.appspot.com') do |faraday|
+      faraday.request :url_encoded # form-encode POST params
+      faraday.response :logger                 # log requests to STDOUT
+      faraday.adapter Faraday.default_adapter  # make requests with Net::HTTP
+      faraday.use FaradayMiddleware::FollowRedirects, limit: 3 # follow redirects up to a limit
+      faraday.headers['Authorization'] = token
     end
+
+    response = conn.get('/validate_token')
+
+    # Check if the response status is 200 OK
+    unless response.status == 200
+      Rails.logger.info("invalid attempt with bearer token: #{token}")
+      render json: { error: 'Unauthorized' }, status: :unauthorized
+    end
+
+    true
+  end
 end
