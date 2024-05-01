@@ -64,7 +64,7 @@ jobs:
 
       - name: Setup environment variables in app.yaml
         run: |
-          echo "env_variables:" >> src/authenticate_service/app.yaml
+          echo "env_variables:" >> src/fin_webapp/app.yaml
           echo "  RAILS_ENV: 'production'" >> src/fin_webapp/app.yaml
           echo "  ALPHA_VANTAGE_API_KEY: ${{ secrets.ALPHA_VANTAGE_API_KEY }}" >> src/fin_webapp/app.yaml
           echo "  SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE_NEWS }}" >> src/fin_webapp/app.yaml
