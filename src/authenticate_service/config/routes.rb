@@ -13,5 +13,7 @@ Rails.application.routes.draw do
   # Route for Validate Token
   devise_scope :user do
     get '/validate_token', to: 'users/sessions#validate'
+    put '/update_password', to: 'users/sessions#update_password'
+    put '/update_name', to: 'users/sessions#update_name'
   end
 end

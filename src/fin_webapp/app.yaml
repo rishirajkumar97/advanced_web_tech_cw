@@ -1,3 +1,4 @@
+service: news-service
 runtime: custom
 env: flex
 

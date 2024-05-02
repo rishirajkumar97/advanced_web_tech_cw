@@ -22,6 +22,15 @@ class AlphaVantageService
     handle_response(response)
   end
 
+  def get_top_gainers_losers
+    response = @connection.get("/query", {
+      function: 'TOP_GAINERS_LOSERS',
+      apikey: @api_key
+    })
+
+    handle_response(response)
+  end
+
   private
 
   def handle_response(response)
