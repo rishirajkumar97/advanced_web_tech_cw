@@ -12,6 +12,7 @@ gem "sqlite3", "~> 1.4"
 gem "puma", ">= 5.0"
 
 gem 'faraday'
+gem 'rack-cors'
 
 # Use dotenv-rails gem for managing environment variables
 gem 'dotenv-rails', groups: [:development, :test]
