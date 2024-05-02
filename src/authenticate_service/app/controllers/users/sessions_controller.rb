@@ -25,6 +25,16 @@ class Users::SessionsController < Devise::SessionsController
     end
   end
 
+  def update_name
+    user = @current_user
+    if user.update(name: params[:name])
+      render json: { status: 200, message: 'User\'s Name updated successfully.' }, status: :ok
+    else
+      render json: { status: 422, message: 'Failed to update user name' }, status: :unprocessable_entity
+    end
+     
+  end
+
   def validate
     if request.headers['Authorization'].present?
       jwt_payload = JWT.decode(request.headers['Authorization'].split(' ').last, ENV['DEVISE_JWT_SECRET_KEY']).first
