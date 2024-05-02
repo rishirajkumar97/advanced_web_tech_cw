@@ -32,7 +32,6 @@ class Users::SessionsController < Devise::SessionsController
     else
       render json: { status: 422, message: 'Failed to update user name' }, status: :unprocessable_entity
     end
-     
   end
 
   def validate
