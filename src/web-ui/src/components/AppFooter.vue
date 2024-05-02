@@ -1,7 +1,7 @@
 <template>
 <footer class="footer">
   <b-container class="text-center">
-    <span class="text-muted ">By group 9 MSC SURREY</span>
+    <span class="text-muted ">*All rights reserved*</span>
   </b-container>
 </footer>
 </template>
@@ -17,8 +17,8 @@ export default {
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 50px;
-  line-height: 50px; /* Vertically center the text there */
+  height: 20px;
+  line-height: 20px; /* Vertically center the text there */
   background-color: #f5f5f5;
 }
 

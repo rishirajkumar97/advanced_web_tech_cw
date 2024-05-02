@@ -63,7 +63,8 @@ const appService = {
           } ]}
       return data.feed;
     } catch (error) {
-      throw error;
+      console.error('Failed to fetch posts:', error);
+      throw error;  // Throw to handle errors where this function is called
     }
   },
   async getProfile() {

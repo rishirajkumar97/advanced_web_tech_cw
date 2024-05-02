@@ -1,16 +1,16 @@
 <template>
-<b-container>
-  <b-row>
-    <b-col lg="4" md="6" class="mb-2 mt-2"  v-for="post in posts" :key="post.id">
-      <AppPost :post='post'></AppPost>
-    </b-col>
-  </b-row>
-</b-container>
+  <b-container>
+    <b-row>
+      <b-col lg="4" md="6" class="mb-2 mt-2" v-for="post in posts" :key="post.id">
+        <AppPost :post="post"></AppPost>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
+
 <script>
 import { mapGetters } from 'vuex';
 import AppPost from './../components/AppPost.vue';
-
 
 export default {
   name: 'home',
@@ -39,10 +39,20 @@ export default {
   },
 };
 </script>
+
 <style>
-.card-body {
-  height: auto;
-  min-height: 200px;
+/* Adjust the styles for the AppPost component */
+.app-post {
+  text-align: left; /* Align content to the left */
+}
+
+/* Make the headings and expert text bold */
+.app-post .card-title {
+  font-weight: bold;
+}
+
+.app-post .expert {
+  font-weight: bold;
 }
 </style>
 
