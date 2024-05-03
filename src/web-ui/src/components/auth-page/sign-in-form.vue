@@ -13,11 +13,13 @@
         prepend-inner-icon="mdi-account"
         placeholder="Username"
         filled
+        v-model="username"
       ></v-text-field>
       <v-text-field
         prepend-inner-icon="mdi-lock"
         placeholder="Password"
         type="password"
+        v-model="password"
         filled
       ></v-text-field>
       <v-btn
@@ -54,7 +56,7 @@ export default {
     login() {
       this.$store.dispatch("authPageModule/loginAndSaveToken", {
         username: this.username,
-        asswor: this.password,
+        password: this.password,
       });
     },
   },

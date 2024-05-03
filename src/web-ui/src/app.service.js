@@ -5,11 +5,13 @@ axios.interceptors.request.use((config) => {
   if (typeof window === 'undefined') {
     return config;
   }
-  //const token = window.localStorage.getItem('token');
-  const token =''
-  if (token) {
-    const req = config;
-    req.headers.Authorization = `Bearer ${token}`;
+  const token = window.localStorage.getItem('auth_token');
+  if (config.url != 'https://meta-geography-243114.nw.r.appspot.com/login')
+  {
+    if (token) {
+      const req = config;
+      req.headers.Authorization = token;
+    }
   }
   return config;
 });
