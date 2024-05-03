@@ -1,0 +1,69 @@
+name: Deploy to Google Cloud From GHCR for Stock API Service
+
+on:
+  workflow_run:
+    workflows: ["Docker Image for Stock API Service CI"]  # The name of your CI workflow
+    types:
+      - completed  # Triggers when the CI workflow has completed
+    branches:
+      - main
+  
+
+jobs:
+  push_to_gcr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          service_account_key: ${{ secrets.GCP_DEPLOY }}
+          project_id: meta-geography-243114
+
+      - name: Configure Docker
+        run: gcloud auth configure-docker
+
+      - name: Pull image from GHCR
+        run: docker pull ghcr.io/rishirajkumar97/stock-service:latest
+
+      - name: Tag image for Google Artifact Registry
+        run: docker tag ghcr.io/rishirajkumar97/stock-service:latest gcr.io/meta-geography-243114/awt_cw/stock-service:latest
+
+      - name: Push image to Google Artifact Registry
+        run: docker push gcr.io/meta-geography-243114/awt_cw/stock-service:latest
+  deploy_to_app_engine:
+    name: Deploy to App Engine
+    runs-on: ubuntu-latest
+    needs: push_to_gcr  # This job runs only after the push_to_gcr job completes
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          service_account_key: ${{ secrets.GCP_DEPLOY }}
+          project_id: meta-geography-243114
+
+      - name: Change to the correct directory
+        run: cd src/stock_data_service
+
+      - name: List contents of the stock_data_service directory
+        run: ls
+
+      - name: Set environment variables
+        run: echo "DEVISE_JWT_SECRET_KEY=${{ secrets.DEVISE_JWT_SECRET_KEY }}" >> $GITHUB_ENV
+
+      - name: Set environment variables
+        run: echo "SECRET_KEY_BASE=${{ secrets.SECRET_KEY_BASE }}" >> $GITHUB_ENV
+
+      - name: Setup environment variables in app.yaml #removed mentions of Database and Secret Keys
+        run: |
+          echo "env_variables:" >> src/stock_data_service/app.yaml
+          echo "  RAILS_ENV: 'production'" >> src/stock_data_service/app.yaml
+
+      - name: Deploy to Google App Engine
+        run: |
+          gcloud app deploy src/stock_data_service/app.yaml --image-url=gcr.io/meta-geography-243114/awt_cw/stock-service:latest --quiet
