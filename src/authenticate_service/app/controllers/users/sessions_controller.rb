@@ -79,7 +79,10 @@ class Users::SessionsController < Devise::SessionsController
     render json: {
       status: {
         code: 200, message: 'Logged in successfully.',
-        data: { user: current_user.as_json.except('jti') }
+        data: { 
+          user: current_user.as_json.except('jti'),
+          token: request.env['warden-jwt_auth.token']
+        }
       }
     }, status: :ok
   end
