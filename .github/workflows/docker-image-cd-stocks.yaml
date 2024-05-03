@@ -63,6 +63,7 @@ jobs:
         run: |
           echo "env_variables:" >> src/stock_data_service/app.yaml
           echo "  RAILS_ENV: 'production'" >> src/stock_data_service/app.yaml
+          echo "  SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE_NEWS }}" >> src/stock_data_service/app.yaml
 
       - name: Deploy to Google App Engine
         run: |
