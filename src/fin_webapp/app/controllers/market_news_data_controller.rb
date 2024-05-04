@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#Market news and top gainers/losers information controller
+# Market news and top gainers/losers information controller
 class MarketNewsDataController < ApplicationController
   # Rescue block for throwing 400 request
   rescue_from ActionController::ParameterMissing do |exception|
@@ -9,8 +9,9 @@ class MarketNewsDataController < ApplicationController
 
   def index
     alpha_vantage_service = AlphaVantageService.new
-    params.require(:symbol) # to ensure that the symbol is always present when querying Alpha Vantage Endpoint
-    render json: alpha_vantage_service.get_news_sentiment(params[:symbol])
+    params[:topics] = nil if params[:topics] == 'null'
+
+    render json: alpha_vantage_service.get_news_sentiment(params[:topics])
   end
 
   def top_gainers_losers
