@@ -27,6 +27,16 @@ const appService = {
       throw error;  // Throw to handle errors where this function is called
     }
   },
+  async getTopGainersLosers() {
+    try {
+      const response = await axios.get(`/top_gain_loss?symbol=IBM`);
+      return response.data;
+        }
+    catch (error) {
+      console.error('Failed to fetch posts:', error);
+      throw error;  // Throw to handle errors where this function is called
+    }
+  },
   async getProfile() {
     try {
       const response = await axios.get('/services/profile.php');
