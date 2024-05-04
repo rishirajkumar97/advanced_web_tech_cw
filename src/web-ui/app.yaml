@@ -1,0 +1,10 @@
+service: web-ui
+runtime: nodejs20 # or nodejs18, depending on your compatibility checks
+
+handlers:
+- url: /(.*\..+)$
+  static_files: dist/\1
+  upload: dist/(.*\..+)$
+- url: /.*
+  static_files: dist/index.html
+  upload: dist/index.html
