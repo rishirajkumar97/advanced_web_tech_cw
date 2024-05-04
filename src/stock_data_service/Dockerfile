@@ -38,6 +38,8 @@ RUN rails --version
 RUN useradd -m -s /bin/bash rails && chown -R rails:rails /rails
 USER rails
 
+RUN chmod +x /rails/bin/docker-entrypoint
+
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 EXPOSE 3000
 CMD ["rails", "server", "-b", "0.0.0.0"]
