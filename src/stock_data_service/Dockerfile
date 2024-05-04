@@ -9,8 +9,6 @@ ENV RAILS_ENV=production \
     GEM_HOME=/usr/local/bundle \
     PATH="/usr/local/bundle/bin:$PATH"
 
-# In Dockerfile
-ENV ALPHA_VANTAGE_API_KEY=${ALPHA_VANTAGE_API_KEY}
 ENV SECRET_KEY_BASE=${SECRET_KEY_BASE}
 
 WORKDIR /rails
@@ -39,8 +37,6 @@ RUN rails --version
 
 RUN useradd -m -s /bin/bash rails && chown -R rails:rails /rails
 USER rails
-
-RUN chmod +x /rails/bin/docker-entrypoint
 
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 EXPOSE 3000
