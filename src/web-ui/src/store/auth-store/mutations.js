@@ -8,5 +8,8 @@ export const mutations = {
     setFormData(state, newVal) {
         state.formData = {...state.formData, ...newVal };
     },
+    setLoggedIn(state, newVal) {
+        state.loggedin =newVal;
+    },
 
 };

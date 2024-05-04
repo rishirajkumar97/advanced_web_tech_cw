@@ -24,7 +24,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/category/front-end',
+      redirect: '/auth',
     },
     {
       path: '/category/:id',
@@ -43,6 +43,7 @@ export default new Router({
     name: 'authPage',
     component: authPage
    },
+ 
    {
     path: '/perview',
     name: 'perview',

@@ -1,5 +1,6 @@
 <template>
   <b-container>
+
     <b-row>
       <b-col lg="4" md="6" class="mb-2 mt-2" v-for="post in posts" :key="post.id">
         <AppPost :post="post"></AppPost>
@@ -22,6 +23,7 @@ export default {
   },
   computed: {
     ...mapGetters('postsModule', ['posts']),
+
   },
   watch: {
     $route() {
