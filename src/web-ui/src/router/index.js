@@ -2,7 +2,8 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Category from '@/views/Category.vue';
 import NotFound from '@/views/NotFound.vue';
-
+import perview from '@/views/perview.vue';
+;
 import chart from '@/views/chart.vue';
 
 import authPage from '@/views/signup/auth-page.vue';
@@ -37,17 +38,20 @@ export default new Router({
       component: chart,
     },
 
-{
+   {
     path: '/auth',
     name: 'authPage',
     component: authPage
-},
-
-
+   },
+   {
+    path: '/perview',
+    name: 'perview',
+    component: perview,
+   },
     {
       path: '*',
       component: NotFound,
-    },
+    }
 
 
 

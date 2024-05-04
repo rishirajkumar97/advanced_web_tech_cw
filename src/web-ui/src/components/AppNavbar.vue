@@ -5,6 +5,7 @@
     <b-navbar-brand to="/">FinApp</b-navbar-brand>
     <b-collapse is-nav id="nav_collapse">
       <b-navbar-nav class="ml-auto">
+        <b-nav-item to="/perview" >Performers</b-nav-item>
         <b-nav-item to="/category/front-end" >News feeds</b-nav-item>
         <b-nav-item to="/chart" >Charts</b-nav-item>
         <b-nav-item @click='logout' v-if="isAuthenticated">Logout</b-nav-item>
