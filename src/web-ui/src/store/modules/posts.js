@@ -3,6 +3,7 @@ import appService from './../../app.service';
 const state = {
   posts: [],
   categoryId: 0,
+  topic: null
 };
 
 const mutations = {

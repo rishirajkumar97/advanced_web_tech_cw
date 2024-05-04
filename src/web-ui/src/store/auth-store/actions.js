@@ -22,30 +22,29 @@ export const actions = {
     },
 
     logout(context) {
-        localStorage.removeItem('auth_token');
-       
-       
-        axios.delete('https://meta-geography-243114.nw.r.appspot.com/logout' ).then((response) => {
-            //
-         
-              if (localStorage.getItem(auth_token)) {
-                const req = config;
-                req.headers.Authorization = token;
-              }
-          
-              localStorage.removeItem('auth_token'); 
-              router.push('/auth');   
-              window.location.reload();
-              
-           
-        }).catch((error) => {
-            console.log(error);
-            //will always redirect to profile np
-            router.push('/404');
-        });
+        const token = window.localStorage.getItem('auth_token');
+        if (token) {
+            const config = {
+                headers: {
+                    Authorization: token // Set the authorization header
+                }
+            };
+    
+            // Make the axios delete request with the configuration
+            axios.delete('https://meta-geography-243114.nw.r.appspot.com/logout', config)
+            .then((response) => {
+                localStorage.removeItem('auth_token'); // Remove the token from localStorage
+                router.push('/auth');   
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.log(error);
+                router.push('/404');
+            });
+        } else {
+            // Handle the case where no token is found
+            console.log('No authentication token found.');
+            router.push('/auth');
+        }
     }
-
-
-
-
 };
