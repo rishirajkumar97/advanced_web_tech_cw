@@ -9,6 +9,7 @@
         
         <b-nav-item to="/category/front-end" v-if="loggedinState">News feeds</b-nav-item>
         <b-nav-item to="/chart" v-if="loggedinState">Charts</b-nav-item>
+                <b-nav-item to="/editprofile" v-if="loggedinState">editprofile</b-nav-item>
   
    
                 <b-nav-item to="/auth" v-if="!loggedinState">Signin/Signup</b-nav-item>
@@ -26,7 +27,8 @@ export default {
   name: 'AppNavbar',
   computed: {
     loggedinState(){
-  return localStorage.getItem('auth_token');
+   return localStorage.getItem('auth_token');
+
 },
  
     ...mapGetters('authenticationModule', ['isAuthenticated']),
