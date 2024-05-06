@@ -47,3 +47,6 @@ end
 
 
 gem "rack-cors", "~> 2.0"
+
+
+gem "faraday_middleware", "~> 1.2"

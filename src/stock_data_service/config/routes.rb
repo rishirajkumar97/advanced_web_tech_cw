@@ -4,17 +4,11 @@ Rails.application.routes.draw do
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
-
-  # Defines the root path route ("/")
-  # root "posts#index"
-
-  # Routes for Graphs controller
-  resources :graphs
   
-  # Routes for Company Overviews
-  resources :company_overviews, only: [:index, :show]  # Assuming you want index and show actions
+  # Route for Company Overviews
+  get 'companies/data', to: 'companies#fetch_company_data', as: :fetch_company_data
 
-  # Routes for Intraday Stock Data
-  resources :intraday_stock_data, only: [:index]  # Assuming you only want an index action
+  # Route for AlphaVantage Stock Data
+  get 'stocks/data', to: 'stocks#fetch_stock_data', as: :fetch_stock_data
 
 end

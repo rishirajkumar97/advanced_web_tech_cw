@@ -19,7 +19,11 @@ axios.interceptors.request.use((config) => {
 const appService = {
   async getPosts(categoryId) {
     try {
+<<<<<<< HEAD
       const response = await axios.get(`/market_news_data?symbol=IBM`);
+=======
+      const response = await axios.get(`/market_news_data?topics=${categoryId.topic}`);
+>>>>>>> 6e95c990e013a08e00d8ca0d901dec15953df509
       return response.data.feed;
         }
     catch (error) {

@@ -3,6 +3,10 @@ import appService from './../../app.service';
 const state = {
   posts: [],
   categoryId: 0,
+<<<<<<< HEAD
+=======
+  topic: null
+>>>>>>> 6e95c990e013a08e00d8ca0d901dec15953df509
 };
 
 const mutations = {
