@@ -1,6 +1,6 @@
 import axios from 'axios'
 import router from '../../router/index'
-import state from './state.js'
+import { state } from './state.js'
 
 export const actions = {
     loginAndSaveToken(context, { username, password }) {

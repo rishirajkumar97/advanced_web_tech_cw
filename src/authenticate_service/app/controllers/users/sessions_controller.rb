@@ -4,7 +4,7 @@
 class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
 
-  before_action :authenticate_user_using_jwt, only: [:update_password]
+  before_action :authenticate_user_using_jwt, only: [:update_password, :update_name]
 
   def update_password
     user = @current_user
