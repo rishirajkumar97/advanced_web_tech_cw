@@ -22,34 +22,6 @@ export const actions = {
     },
 
     logout(context) {
-<<<<<<< HEAD
-        localStorage.removeItem('auth_token');
-       
-       
-        axios.delete('https://meta-geography-243114.nw.r.appspot.com/logout' ).then((response) => {
-            //
-         
-              if (localStorage.getItem(auth_token)) {
-                const req = config;
-                req.headers.Authorization = token;
-              }
-          
-              localStorage.removeItem('auth_token'); 
-              router.push('/auth');   
-              window.location.reload();
-              
-           
-        }).catch((error) => {
-            console.log(error);
-            //will always redirect to profile np
-            router.push('/404');
-        });
-    }
-
-
-
-
-=======
         const token = window.localStorage.getItem('auth_token');
         if (token) {
             const config = {
@@ -75,5 +47,4 @@ export const actions = {
             router.push('/auth');
         }
     }
->>>>>>> 6e95c990e013a08e00d8ca0d901dec15953df509
 };
