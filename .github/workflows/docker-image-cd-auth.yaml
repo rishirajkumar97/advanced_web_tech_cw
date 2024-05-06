@@ -7,8 +7,6 @@ on:
       - completed  # Triggers when the CI workflow has completed
     branches:
       - main
-  pull_request:
-    branches: [ "main" ]
   
 
 jobs:
