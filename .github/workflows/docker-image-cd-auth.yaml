@@ -49,6 +49,10 @@ jobs:
           service_account_key: ${{ secrets.GCP_DEPLOY }}
           project_id: meta-geography-243114
 
+      - name: Delete resource if it exists
+        run: |
+          gcloud compute instances delete my-auth-service-instance --zone europe-west2-a
+
       - name: Create or update instance with new Docker image and environment variables
         run: |
           gcloud compute instances create-with-container my-auth-service-instance \
