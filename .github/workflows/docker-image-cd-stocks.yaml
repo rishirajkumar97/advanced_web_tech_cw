@@ -72,4 +72,4 @@ jobs:
           cd src/stock_data_service
           ls
           gcloud config set storage/use_gsutil true
-          gcloud app deploy --quiet
+          gcloud app deploy app.yaml --quiet
