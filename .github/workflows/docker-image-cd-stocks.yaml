@@ -71,4 +71,4 @@ jobs:
         run: |
           cd src/stock_data_service
           ls
-          gcloud app deploy --quiet
+          gcloud app deploy --quiet --verbosity=debug
