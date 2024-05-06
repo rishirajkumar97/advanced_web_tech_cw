@@ -1,3 +1,3 @@
 service: news-service
-runtime: ruby33
+runtime: ruby32
 entrypoint: bundle exec rails server -p $PORT

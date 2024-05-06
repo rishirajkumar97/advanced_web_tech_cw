@@ -68,4 +68,6 @@ jobs:
           echo "  SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE_NEWS }}" >> src/fin_webapp/app.yaml
       - name: Deploy to Google App Engine
         run: |
-          gcloud app deploy src/fin_webapp/app.yaml --image-url=gcr.io/meta-geography-243114/awt_cw/news-service:latest --quiet
+          cd src/fin_webapp/
+          ls
+          gcloud app deploy --quiet
