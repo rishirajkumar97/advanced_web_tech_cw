@@ -71,4 +71,5 @@ jobs:
         run: |
           cd src/stock_data_service
           ls
+          gcloud config set app/use_deprecated_preparation True
           gcloud app deploy --quiet
