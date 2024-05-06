@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "meta-geography-243114",
+  "private_key_id": "722626e411b2a98e29f08768cdd5be3649567d18",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCe4M/B3oxsqJJ9\nXavTsjeAExujGNKtXkmJ+9Z2ZkHtnbT02B9iODDNhe2DtKKD7MABytjA9uo/+6cC\nPPDlGDFEyKaRWJKWz1cNT7gW7FzQj+cK3tRca1RDI4WTDandVdSY4SYdE0An2NTl\nistUXaDAES1cNFoltksy8GnGhNJMr/V5cvKQjnz73iDh0k+x5HmcIBc2J9S27jSP\nQTWHbeurBi1HXuBunlytEaSTgc3URl5qZQ2BwQvgBFcUttiGw4bT9pmCEqU8RJfB\nTqEL4KEeN35NI+e9TbEgm/uEcTaFX5mq/mCxPjvjGlfIA1WuK80ExK+5yJYq1Wb3\nciQx6C67AgMBAAECggEAJkHSJUfWno+U/rUgnBBNBv0S6ZofmPmcUaqfwNDszS/t\nlAu6uub28XZvdAh6HbRTo9rZiNWsII4TcBmGlFPYAU0jttoSKlhxCNaKaJKv4tTT\n+K0hi8OYfbY/AuMGZTK2x71ndRbemvm+giuCvKTzAWzhdFNy5aPYxcJYZiIzlZ1k\nDR4D6tPYwf4aQg1EHUTA2U0u/JkLJb/yHIYXiSbajYCtc+vJCrMzgmc72aki3pb/\n8Z0FK5IuG7eu8VqGKBYrJfICewdLW8zsJt1qILPjNGEo/ICtGqCmN5nSbCZ5svng\na7JEIpC4yIZE6oZQu6lUmFAn66fSKfSId13zFiiQ0QKBgQDTiJqe8Z7hbmCEnG5N\nLXAY/TYn83XpLQRX4jZRjpAV2GeW09HYQM8mIjfZTipCOdTc3j5D3QsBzTKsVgGb\noZgjCwvHtX+NPAfkC0ktH++yvd8Lt/9G50K2Z6XkyLCdnxe7RahJdGCi+CE6Xslc\n8YfcDV1SpeupqrKZbWwlobmgyQKBgQDARqBHaH+mW/NpK0wQO4nm9F740aB8SpTH\nmI0Bq7VNGPyo95xUdpwordA8MbapqswdG1w6AP4aVGRR2PrnO6CwAqYg5ax5l1dC\nHI03FkvwNIH0L5k9GRvaUrJo+sbQEDi6JYH1OQ5GJiZ27Xb6gWV/nNLtmlDAit0X\nBtAUySB5YwKBgQCbQjpqyuFYiNEixEZZMy6ByOhE7nbuzHHRp2FC/yZWQl3V4Ga3\nGOpyDM99Gdf+f7/y1NRSrxzzF49H2mCXwEWQAv2EeXzDRvprsLTm//fI83+QdF5T\nxk2639xtTbgEGM8sTvYz481CEGkjFIsrQsP7CXwju1B7WaR45E1qWYeLsQKBgHgt\nLIy1UeOm4TLAryAONpk18A5Q56AH9YnzXV7H9d+kWHc7nGhmYiBC0z5sTCEr8bvX\nmANhD3FhgfpuRhQ0/rBEV5WEOBMfdpiJw/HEa95M01TOU1cO1IvW2FApPg5ZtTsT\nqnCdIsDRo4T90zmrmsbyPBvqMcLGiH2V8oSrWTLFAoGBAIKaYTLTcEAwiTz12zaB\nPQz1YUnxOCqo00o+qxzEa5N102I3FR4yaTCPQYxWU1o6JQ5AV6nKd2PFD3p1phtM\n2kPpQHpLxEmVk5kKgAsiKDRg0I6hrl8SpAcASQr1hGHsf/geiInMcWgwobQJN5A7\nk1lzQPHR6YJsbEs/oioWObke\n-----END PRIVATE KEY-----\n",
+  "client_email": "github-actions@meta-geography-243114.iam.gserviceaccount.com",
+  "client_id": "106768666468898607474",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/github-actions%40meta-geography-243114.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

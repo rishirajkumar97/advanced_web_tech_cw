@@ -1,8 +1,11 @@
 # advanced_web_tech_cw
 Advanced Web Tech Course Work Mono Repo
 This repository consists of all the code base related to Financial Stock Data Application
-## To Run the application
-TODO
+Service:
+- Auth Service
+- News Data Service
+- Financial Data Service
+- UI Server Package
 
 ## To Start the instance deployed in cloud
 - Run the following script and then visit this page
