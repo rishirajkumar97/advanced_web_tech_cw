@@ -67,4 +67,7 @@ jobs:
 
       - name: Deploy to Google App Engine
         run: |
-          gcloud app deploy src/stock_data_service/app.yaml --image-url=gcr.io/meta-geography-243114/awt_cw/stock-service:latest --quiet
+          cd src/stock_data_service
+          ls
+          gcloud config set storage/use_gsutil true
+          gcloud app deploy app.yaml --quiet

@@ -27,8 +27,7 @@ export default {
   name: 'AppNavbar',
   computed: {
     loggedinState(){
-   return localStorage.getItem('auth_token');
-
+  return localStorage.getItem('auth_token');
 },
  
     ...mapGetters('authenticationModule', ['isAuthenticated']),

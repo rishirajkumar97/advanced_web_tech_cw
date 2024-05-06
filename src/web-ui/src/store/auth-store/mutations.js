@@ -12,5 +12,8 @@ export const mutations = {
         state.showAlert =newVal;
         console.log("New value set",newVal)
     },
+    setLoggedIn(state, newVal) {
+        state.loggedin =newVal;
+    },
 
 };

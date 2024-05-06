@@ -51,8 +51,6 @@ export const actions = {
         }
     },
 
-
-
     updateName(context, { name, email }) {
         console.log("Frm actions",name, email )
     //      this.axios.put('https://meta-geography-243114.nw.r.appspot.com/update',//CHECK
@@ -96,7 +94,4 @@ export const actions = {
     //         });
     //       });
       },
-       
-     
-    
 };
