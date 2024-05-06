@@ -56,4 +56,4 @@ jobs:
             --machine-type=e2-micro \
             --container-image=gcr.io/meta-geography-243114/awt_cw/auth-service:latest \
             --tags=http-server,https-server \
-            --container-env=AUTH_DATABASE_URL=${{ secrets.AUTH_DATABASE_URL }},DEVISE_JWT_SECRET_KEY=${{ secrets.DEVISE_JWT_SECRET_KEY }},SECRET_KEY_BASE=${{ secrets.SECRET_KEY_BASE }}
+            --container-env=AUTH_DATABASE_URL=${{ secrets.AUTH_DATABASE_URL }},DEVISE_JWT_SECRET_KEY=${{ secrets.DEVISE_JWT_SECRET_KEY }},SECRET_KEY_BASE=${{ secrets.SECRET_KEY_BASE_AUTH }}
