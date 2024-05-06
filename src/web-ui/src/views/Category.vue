@@ -1,4 +1,6 @@
 <template>
+  
+  
   <b-container>
     <b-row class="sticky-top">
       <b-col>
@@ -7,12 +9,14 @@
         <b-form-select v-model="selectedTopic" class="mb-4" :options="topicOptions" @change="loadPost"></b-form-select>
       </b-col>
     </b-row>
-
+    <div v-if="isLoading" class="spinner"></div>
+    <div v-else>
     <b-row>
       <b-col lg="4" md="6" class="mb-2 mt-2" v-for="post in posts" :key="post.id">
         <AppPost :post="post"></AppPost>
       </b-col>
     </b-row>
+  </div>
   </b-container>
 </template>
 
@@ -40,7 +44,7 @@ export default {
     this.loadPost();
   },
   computed: {
-    ...mapGetters('postsModule', ['posts']),
+    ...mapGetters('postsModule', ['posts', 'isLoading']),
   },
   watch: {
     $route() {
@@ -82,6 +86,24 @@ export default {
 
 .app-post .expert {
   font-weight: bold;
+}
+
+.spinner {
+  border: 6px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #3498db;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
 

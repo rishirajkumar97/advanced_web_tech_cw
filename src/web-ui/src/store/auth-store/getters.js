@@ -9,5 +9,8 @@ export const getters = {
     getFormData: (state) => {
         return state.formData;
     },
+    getShowAlert: (state) => {
+        return state.showAlert;
+    },
 
 };

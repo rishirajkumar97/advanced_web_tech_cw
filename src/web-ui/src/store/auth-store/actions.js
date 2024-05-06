@@ -1,17 +1,21 @@
 import axios from 'axios'
 import router from '../../router/index'
+import { state } from './state.js'
 
 export const actions = {
     loginAndSaveToken(context, { username, password }) {
-        // this is just an example on how to save the JWT Token, PS AUTH API is fake
+        context.commit('setShowAlert',true);
         axios.post('https://meta-geography-243114.nw.r.appspot.com/login', { user:  { email: username, password: password } } ).then((response) => {
             let token = response.data.status.data.token;
-            localStorage.setItem('auth_token', token);
-            this.state.loggedin=true
-            
-            router.push('/category/front-end');
+            localStorage.setItem('auth_token', token);  
+            state.formData.email = username;
+            state.formData.password = password;
+            state.formData.name = "the name";
+            context.commit('setShowAlert',true);
+            router.push('/editprofile');
             window.location.reload();
-            console.log("asdfasdfasdfsdfasdf", this.state.loggedin)
+           
+
         }).catch((error) => {
             console.log(error);
             print("couldnot logged in")
@@ -46,5 +50,59 @@ export const actions = {
             console.log('No authentication token found.');
             router.push('/auth');
         }
-    }
+    },
+
+    updateName(context, { name, email }) {
+        console.log("Frm actions",name, email )
+        const token = window.localStorage.getItem('auth_token');
+        if (token) {
+            const config = {
+                headers: {
+                    Authorization: token // Set the authorization header
+                }
+            };
+         axios.put('https://meta-geography-243114.nw.r.appspot.com/update_name',//CHECK
+         {
+            name: name
+         }, config).then((response) => {
+  
+            this.$swal({
+              title: "Updated",
+              text: "Your profile was updated successfully",
+              icon: "success",
+              confirmButtonText: "Done",
+            });
+          })
+          .catch((error) => {
+            this.$swal({
+              title: "Oops, Something went wrong ! ",
+              text: error.message,
+              icon: "warning",
+            });
+          });
+        }
+      },
+       
+
+      updatePassword(context, { email, password,oldPassword }) {
+        console.log("Frm actions update Password",email, password, oldPassword)
+      
+    //      this.axios.put('https://meta-geography-243114.nw.r.appspot.com/update',//CHECK
+    //      formData  ).then((response) => {
+  
+    //         this.$swal({
+    //           title: "Updated",
+    //           text: "Your profile was updated successfully",
+    //           icon: "success",
+    //           confirmButtonText: "Done",
+    //         });
+    //       })
+    //       .catch((error) => {
+    //         this.$swal({
+    //           title: "Oops, Something went wrong ! ",
+    //           text: error.message,
+    //           icon: "warning",
+    //         });
+    //       });
+      },
 };
