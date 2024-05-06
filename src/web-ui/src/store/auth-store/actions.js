@@ -33,7 +33,7 @@ export const actions = {
                     Authorization: token // Set the authorization header
                 }
             };
-    
+            localStorage.removeItem('auth_token'); // Trigger Logout and removal of token so that the UI dosent end up in a dead state inbetween
             // Make the axios delete request with the configuration
             axios.delete('https://meta-geography-243114.nw.r.appspot.com/logout', config)
             .then((response) => {
@@ -43,7 +43,7 @@ export const actions = {
             })
             .catch((error) => {
                 console.log(error);
-                router.push('/404');
+                router.push('/auth');
             });
         } else {
             // Handle the case where no token is found
