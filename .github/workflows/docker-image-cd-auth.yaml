@@ -7,6 +7,8 @@ on:
       - completed  # Triggers when the CI workflow has completed
     branches:
       - main
+  pull_request:
+    branches: [ "main" ]
   
 
 jobs:
@@ -33,8 +35,8 @@ jobs:
 
       - name: Push image to Google Artifact Registry
         run: docker push gcr.io/meta-geography-243114/awt_cw/auth-service:latest
-  deploy_to_app_engine:
-    name: Deploy to App Engine
+  deploy_to_compute_engine:
+    name: Deploy to Compute Engine
     runs-on: ubuntu-latest
     needs: push_to_gcr  # This job runs only after the push_to_gcr job completes
     steps:
@@ -47,29 +49,11 @@ jobs:
           service_account_key: ${{ secrets.GCP_DEPLOY }}
           project_id: meta-geography-243114
 
-      - name: Change to the correct directory
-        run: cd src/authenticate_service
-
-      - name: List contents of the authenticate_service directory
-        run: ls
-      
-      - name: Set environment variables
-        run: echo "AUTH_DATABASE_URL=${{ secrets.AUTH_DATABASE_URL }}" >> $GITHUB_ENV
-
-      - name: Set environment variables
-        run: echo "DEVISE_JWT_SECRET_KEY=${{ secrets.DEVISE_JWT_SECRET_KEY }}" >> $GITHUB_ENV
-
-      - name: Set environment variables
-        run: echo "SECRET_KEY_BASE=${{ secrets.SECRET_KEY_BASE }}" >> $GITHUB_ENV
-
-      - name: Setup environment variables in app.yaml
+      - name: Create or update instance with new Docker image and environment variables
         run: |
-          echo "env_variables:" >> src/authenticate_service/app.yaml
-          echo "  RAILS_ENV: 'production'" >> src/authenticate_service/app.yaml
-          echo "  AUTH_DATABASE_URL: ${{ secrets.AUTH_DATABASE_URL }}" >> src/authenticate_service/app.yaml
-          echo "  DEVISE_JWT_SECRET_KEY: ${{ secrets.DEVISE_JWT_SECRET_KEY }}" >> src/authenticate_service/app.yaml
-          echo "  SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE_AUTH }}" >> src/authenticate_service/app.yaml
-
-      - name: Deploy to Google App Engine
-        run: |
-          gcloud app deploy src/authenticate_service/app.yaml --image-url=gcr.io/meta-geography-243114/awt_cw/auth-service:latest --quiet
+          gcloud compute instances create-with-container my-auth-service-instance \
+            --zone=europe-west2-a \
+            --machine-type=e2-micro \
+            --container-image=gcr.io/meta-geography-243114/awt_cw/auth-service:latest \
+            --tags=http-server,https-server \
+            --container-env=AUTH_DATABASE_URL=${{ secrets.AUTH_DATABASE_URL }},DEVISE_JWT_SECRET_KEY=${{ secrets.DEVISE_JWT_SECRET_KEY }},SECRET_KEY_BASE=${{ secrets.SECRET_KEY_BASE }}
