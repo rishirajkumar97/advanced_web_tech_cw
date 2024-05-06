@@ -1,5 +1,6 @@
 import axios from 'axios'
 import router from '../../router/index'
+import state from './state.js'
 
 export const actions = {
     loginAndSaveToken(context, { username, password }) {
@@ -53,23 +54,33 @@ export const actions = {
 
     updateName(context, { name, email }) {
         console.log("Frm actions",name, email )
-    //      this.axios.put('https://meta-geography-243114.nw.r.appspot.com/update',//CHECK
-    //      formData  ).then((response) => {
+        const token = window.localStorage.getItem('auth_token');
+        if (token) {
+            const config = {
+                headers: {
+                    Authorization: token // Set the authorization header
+                }
+            };
+         axios.put('https://meta-geography-243114.nw.r.appspot.com/update_name',//CHECK
+         {
+            name: name
+         }, config).then((response) => {
   
-    //         this.$swal({
-    //           title: "Updated",
-    //           text: "Your profile was updated successfully",
-    //           icon: "success",
-    //           confirmButtonText: "Done",
-    //         });
-    //       })
-    //       .catch((error) => {
-    //         this.$swal({
-    //           title: "Oops, Something went wrong ! ",
-    //           text: error.message,
-    //           icon: "warning",
-    //         });
-    //       });
+            this.$swal({
+              title: "Updated",
+              text: "Your profile was updated successfully",
+              icon: "success",
+              confirmButtonText: "Done",
+            });
+          })
+          .catch((error) => {
+            this.$swal({
+              title: "Oops, Something went wrong ! ",
+              text: error.message,
+              icon: "warning",
+            });
+          });
+        }
       },
        
 
