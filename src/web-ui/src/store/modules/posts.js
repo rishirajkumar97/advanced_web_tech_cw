@@ -5,6 +5,7 @@ const state = {
   categoryId: 0,
   topic: null,
   loading: false,
+  error: null,
 };
 
 const mutations = {
@@ -15,6 +16,9 @@ const mutations = {
   setLoading: (state, loading) => {  // Mutation to set the loading state
     state.loading = loading;
   },
+  setError: (state, error) => {  // Mutation to set the loading state
+    state.error = error;
+  },
 };
 
 const actions = {
@@ -23,8 +27,10 @@ const actions = {
     appService.getPosts(categoryId).then((data) => {
       context.commit('updateCategory', { categoryId, posts: data });
       context.commit('setLoading', false);
+      context.commit('setError', null); 
     }).catch((error) => {
-      context.commit('setLoading', false);    // Set error state
+      context.commit('setLoading', false);
+      context.commit('setError', error);    // Set error state
     });;
   },
 };
@@ -32,6 +38,7 @@ const actions = {
 const getters = {
   posts: state => state.posts,
  isLoading: state => state.loading,
+ error: state => state.error,
 };
 
 export default {

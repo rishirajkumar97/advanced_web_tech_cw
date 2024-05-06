@@ -1,6 +1,4 @@
 <template>
-  
-  
   <b-container>
     <b-row class="sticky-top">
       <b-col>
@@ -11,6 +9,10 @@
     </b-row>
     <div v-if="isLoading" class="spinner"></div>
     <div v-else>
+    <div v-if="error" class="error-message">
+      <p>Error {{ error.message }}</p>
+      <button @click="clearError">Close</button>
+    </div>
     <b-row>
       <b-col lg="4" md="6" class="mb-2 mt-2" v-for="post in posts" :key="post.id">
         <AppPost :post="post"></AppPost>
@@ -44,11 +46,17 @@ export default {
     this.loadPost();
   },
   computed: {
-    ...mapGetters('postsModule', ['posts', 'isLoading']),
+    ...mapGetters('postsModule', ['posts', 'isLoading', 'error']),
   },
   watch: {
     $route() {
       this.loadPost();
+    },
+    error(newValue) {
+      if (newValue) {
+        // Trigger the error dialog or notification
+        console.error(newValue); // Log or show error in your preferred way
+      }
     },
   },
   methods: {
@@ -61,6 +69,9 @@ export default {
         topic: this.selectedTopic,
       });
     },
+    clearError() {
+      this.$store.commit('postsModule/setError', null);
+    }
   },
 };
 </script>
@@ -104,6 +115,14 @@ export default {
   100% {
     transform: rotate(360deg);
   }
+}
+.error-message {
+  padding: 10px;
+  background-color: #f8d7da; /* Light red background */
+  color: #721c24; /* Dark red text */
+  border: 1px solid #f5c6cb;
+  margin: 20px;
+  border-radius: 5px;
 }
 </style>
 
