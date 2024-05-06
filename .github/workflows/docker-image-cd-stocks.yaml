@@ -70,4 +70,5 @@ jobs:
       - name: Deploy to Google App Engine
         run: |
           cd src/stock_data_service
+          ls
           gcloud app deploy --quiet
