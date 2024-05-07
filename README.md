@@ -10,7 +10,7 @@ Service:
 - UI Server Package
 
 ## To Start the instance deployed in cloud and terminate them.
-- Download the scripts from https://drive.google.com/file/d/1-QTtz2YYNvT7h7vV7R4W9tx6PBQoSQvI/view?usp=sharing
+- Download the scripts from https://drive.google.com/file/d/11vXTJXGBL8W5KzR8DSS9pJela7vyftiu/view?usp=sharing
 - Unzip the downloaded zip file, you will find up.sh and down.sh inside them
 - `cd SpinUpAndDownScripts` after unzipping the files
 - Run `bash up.sh` to boot the instances
