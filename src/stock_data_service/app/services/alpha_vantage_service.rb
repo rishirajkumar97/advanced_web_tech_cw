@@ -15,13 +15,13 @@ class AlphaVantageService
       apikey: 'ZO0CYLFSOB6YH8BO'
     }
     response = @connection.get('/query', query_params)
-    #data = handle_response(response)
-    data = hardcoded_stock_data(function, symbol, interval)
+    data = handle_response(response)
 
     # Hardcoded response if API limits are reached
-    if data[:error].present?
+    if data[:error].present? || data["Information"].present?
       data = hardcoded_stock_data(function, symbol, interval) # Hardcoded fallback data
     end
+
     data
   end
 
