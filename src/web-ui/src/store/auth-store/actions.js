@@ -89,7 +89,7 @@ export const actions = {
                     Authorization: token // Set the authorization header
                 }
             };
-         axios.put('https://meta-geography-243114.nw.r.appspot.com/update_password',//CHECK
+         axios.put('https://white-flame-246305.nw.r.appspot.com/update_password',//CHECK
          {
             current_password: oldPassword,
             password: password,
@@ -109,7 +109,7 @@ export const actions = {
       signup(context) {
        console.log("FormData", state.formData);
     
-        axios.post('https://meta-geography-243114.nw.r.appspot.com/signup', { user:  
+        axios.post('https://white-flame-246305.nw.r.appspot.com/signup', { user:  
        
          { email: state.formData.email, password: state.formData.password,name:state.formData.name} } ).then((response) => {
             window.alert(" Your account was created successfully, You can login now");
