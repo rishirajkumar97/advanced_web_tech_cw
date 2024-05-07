@@ -1,0 +1,27 @@
+name: Spin Down Instances in GCloud
+
+on:
+  workflow_dispatch:
+  
+
+jobs:
+  spin_down:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          service_account_key: ${{ secrets.GCP_DEPLOY }}
+          project_id: meta-geography-243114
+
+      - name: Configure Services Down
+        run: gcloud auth configure-docker
+            echo "Stopping all versions"
+            versions=$(gcloud app instances list --filter="VM_STATUS=RUNNING" --format="value(version)")
+            for version in $versions; do
+                echo "Stopping version $version"
+                gcloud app versions stop $version
+            done
