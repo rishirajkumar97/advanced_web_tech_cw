@@ -19,8 +19,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'localhost:8080', 'http://web-ui-dot-meta-geography-243114.nw.r.appspot.com', 'https://web-ui-dot-meta-geography-243114.nw.r.appspot.com'
-
+    origins '*'
     resource "*",
       headers: :any,
       methods: [:get, :post, :put, :patch, :delete, :options, :head]
