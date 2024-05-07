@@ -1,4 +1,4 @@
-name: Spin down Instances in GCloud
+name: Spin Up Instances in GCloud
 
 on:
   workflow_dispatch:
