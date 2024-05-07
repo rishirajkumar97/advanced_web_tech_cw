@@ -10,9 +10,9 @@ Service:
 - UI Server Package
 
 ## To Start the instance deployed in cloud
-
+- Download the scripts from https://drive.google.com/file/d/1-QTtz2YYNvT7h7vV7R4W9tx6PBQoSQvI/view?usp=sharing
 - Run the following script and then visit this page
-- Unzip Scripts.zip
+- Unzip the downloaded zip file, you will find up.sh and down.sh inside them
 - Run ./up.sh to boot the instances
 - Visit the https://github.com/rishirajkumar97/advanced_web_tech_cw/actions to check if the spin up workflow was triggered successfully and wait for the same to complete.
 - The project can be then viewed at this URL: 
