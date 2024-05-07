@@ -12,7 +12,7 @@ Service:
 ## To Start the instance deployed in cloud and terminate them.
 - Download the scripts from https://drive.google.com/file/d/11vXTJXGBL8W5KzR8DSS9pJela7vyftiu/view?usp=sharing
 - Unzip the downloaded zip file, you will find up.sh and down.sh inside them
-- `cd SpinUpAndDownScripts` after unzipping the files
+- `cd SpinUpDown` after unzipping the files
 - Run `bash up.sh` to boot the instances
 - Visit the https://github.com/rishirajkumar97/advanced_web_tech_cw/actions to check if the spin up workflow was triggered successfully and wait for the same to complete.
 - The project can be then viewed at this URL: https://web-ui-dot-white-flame-246305.nw.r.appspot.com/auth

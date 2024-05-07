@@ -18,10 +18,11 @@ jobs:
           project_id: white-flame-246305
 
       - name: Configure Services Down
-        run: gcloud auth configure-docker
-            echo "Stopping all versions"
-            versions=$(gcloud app instances list --filter="VM_STATUS=RUNNING" --format="value(version)")
-            for version in $versions; do
-                echo "Stopping version $version"
-                gcloud app versions stop $version
-            done
+        run: |
+          gcloud auth configure-docker
+          echo "Stopping all versions"
+          versions=$(gcloud app versions list --filter="SERVING_STATUS=SERVING" --format="value(version)")
+          for version in $versions; do
+              echo "Stopping version $version"
+              gcloud app versions stop $version --quiet
+          done

@@ -17,13 +17,14 @@ jobs:
           project_id: white-flame-246305
 
       - name: Configure Services Up
-        run: gcloud auth configure-docker
-            services=("default" "news-service" "stock-api-service", "web-ui")
-            for service in $services; do
-                echo "Starting all stopped versions in service $service"
-                versions=$(gcloud app versions list --service="$service" --filter="SERVING_STATUS!=SERVING" --format="value(version.id)")
-                for version in $versions; do
-                    echo "Starting version $version of service $service"
-                    gcloud app versions start $version --quiet
-                done
-            done
+        run: |
+          gcloud auth configure-docker
+          services=("default" "news-service" "stock-api-service")
+          for service in "${services[@]}"; do
+              echo "Starting all stopped versions in service $service"
+              versions=$(gcloud app versions list --service="$service" --filter="SERVING_STATUS!=SERVING" --format="value(version.id)")
+              for version in $versions; do
+                  echo "Starting version $version of service $service"
+                  gcloud app versions start $version --quiet
+              done
+          done
