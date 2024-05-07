@@ -109,18 +109,19 @@ export const actions = {
       signup(context) {
        console.log("FormData", state.formData);
     
-        axios.post('http://meta-geography-243114.nw.r.appspot.com/signup', { user:  
-        { email:"jawid@gmail.com3", password: "Test121212",name:"jj"} } ).then((response) => {
-        // { email: state.formData.email, password: state.formData.password,name:state.formData.name} } ).then((response) => {
-              router.push('/auth');
-              window.location.reload();
-              window.alert(" Your account was created successfully, You can login now");
+        axios.post('https://meta-geography-243114.nw.r.appspot.com/signup', { user:  
+       
+         { email: state.formData.email, password: state.formData.password,name:state.formData.name} } ).then((response) => {
+            window.alert(" Your account was created successfully, You can login now");
+            window.location.reload(); 
+          
+            
   
           }).catch((error) => {
               console.log(error);
               //will always redirect to profile np
-              window.alert(" Couldn't signup" );
-            //   window.alert(" Couldn't signup" + response.data.status.message);
+        
+               window.alert(" Couldn't signup   " + error.response.data.status.message);
           });
         
       },
