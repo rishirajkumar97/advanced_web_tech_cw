@@ -14,7 +14,7 @@ jobs:
         uses: google-github-actions/setup-gcloud@v0
         with:
           service_account_key: ${{ secrets.GCP_DEPLOY }}
-          project_id: meta-geography-243114
+          project_id: white-flame-246305
 
       - name: Configure Services Up
         run: gcloud auth configure-docker

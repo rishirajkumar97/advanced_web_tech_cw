@@ -29,10 +29,10 @@ jobs:
         run: docker pull ghcr.io/rishirajkumar97/stock-service:latest
 
       - name: Tag image for Google Artifact Registry
-        run: docker tag ghcr.io/rishirajkumar97/stock-service:latest gcr.io/meta-geography-243114/awt_cw/stock-service:latest
+        run: docker tag ghcr.io/rishirajkumar97/stock-service:latest gcr.io/white-flame-246305/awt_cw/stock-service:latest
 
       - name: Push image to Google Artifact Registry
-        run: docker push gcr.io/meta-geography-243114/awt_cw/stock-service:latest
+        run: docker push gcr.io/white-flame-246305/awt_cw/stock-service:latest
   deploy_to_app_engine:
     name: Deploy to App Engine
     runs-on: ubuntu-latest
@@ -45,7 +45,7 @@ jobs:
         uses: google-github-actions/setup-gcloud@v0
         with:
           service_account_key: ${{ secrets.GCP_DEPLOY }}
-          project_id: meta-geography-243114
+          project_id: white-flame-246305
 
       - name: Change to the correct directory
         run: cd src/stock_data_service
@@ -67,4 +67,4 @@ jobs:
 
       - name: Deploy to Google App Engine
         run: |
-          gcloud app deploy src/stock_data_service/app.yaml --image-url=gcr.io/meta-geography-243114/awt_cw/stock-service:latest --quiet
+          gcloud app deploy src/stock_data_service/app.yaml --image-url=gcr.io/white-flame-246305/awt_cw/stock-service:latest --quiet
