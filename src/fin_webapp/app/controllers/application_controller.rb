@@ -8,7 +8,7 @@ class ApplicationController < ActionController::API
 
   def validate_token
     token = request.headers['Authorization']
-    conn = Faraday.new(url: 'https://meta-geography-243114.nw.r.appspot.com') do |faraday|
+    conn = Faraday.new(url: 'https://white-flame-246305.nw.r.appspot.com') do |faraday|
       faraday.request :url_encoded # form-encode POST params
       faraday.response :logger                 # log requests to STDOUT
       faraday.adapter Faraday.default_adapter  # make requests with Net::HTTP
