@@ -1,8 +1,7 @@
-name: Spin up Instances in GCloud
+name: Spin down Instances in GCloud
 
 on:
   workflow_dispatch:
-  
 
 jobs:
   spin_up:
@@ -17,9 +16,9 @@ jobs:
           service_account_key: ${{ secrets.GCP_DEPLOY }}
           project_id: meta-geography-243114
 
-      - name: Configure Docker
+      - name: Configure Services Up
         run: gcloud auth configure-docker
-            services=$(gcloud app services list --format="value(id)")
+            services=("default" "news-service" "stock-api-service", "web-ui")
             for service in $services; do
                 echo "Starting all stopped versions in service $service"
                 versions=$(gcloud app versions list --service="$service" --filter="SERVING_STATUS!=SERVING" --format="value(version.id)")
