@@ -5,7 +5,7 @@ import { state } from './state.js'
 export const actions = {
     loginAndSaveToken(context, { username, password }) {
     
-      axios.post('https://meta-geography-243114.nw.r.appspot.com/login', { user:  { email: username, password: password } } ).then((response) => {
+      axios.post('https://white-flame-246305.nw.r.appspot.com/login', { user:  { email: username, password: password } } ).then((response) => {
             let token = response.data.status.data.token;
             localStorage.setItem('auth_token', token);  
             localStorage.setItem('email',username);
@@ -33,7 +33,7 @@ export const actions = {
             };
             localStorage.removeItem('auth_token'); // Trigger Logout and removal of token so that the UI dosent end up in a dead state inbetween
             // Make the axios delete request with the configuration
-            axios.delete('https://meta-geography-243114.nw.r.appspot.com/logout', config)
+            axios.delete('https://white-flame-246305.nw.r.appspot.com/logout', config)
             .then((response) => {
                 localStorage.removeItem('auth_token'); // Remove the token from localStorage
                 router.push('/auth');   
@@ -60,7 +60,7 @@ export const actions = {
                     Authorization: token // Set the authorization header
                 }
             };
-         axios.put('https://meta-geography-243114.nw.r.appspot.com/update_name',//CHECK
+         axios.put('https://white-flame-246305.nw.r.appspot.com/update_name',//CHECK
          {
             name: name
 
