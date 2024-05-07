@@ -7,6 +7,7 @@ export const mutations = {
     },
     setFormData(state, newVal) {
         state.formData = {...state.formData, ...newVal };
+        console.log( "print form data", state.formData)
     },
     setShowAlert(state, newVal) {
         state.showAlert =newVal;

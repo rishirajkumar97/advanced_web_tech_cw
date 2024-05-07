@@ -12,6 +12,9 @@
         Thank you, <strong >{{ name }}</strong> Your Profile was created
         successfully !
       </v-alert>
+        <v-alert  v-if="!showAlert" text type="success" border="left" width="100%" dismissible  class="custom-alert" @input="handleAlertClose">
+       <strong >{{ name }}</strong> Your can change your details in here
+      </v-alert>
     </v-row>
 
     <v-row class="justify-center pb-5">
@@ -21,16 +24,16 @@
     <v-text-field
   label="Full Name"
   prepend-inner-icon="mdi-account"
-  :value="formData.name"
+  :value="fullName"
   v-model="formData.name"
-  :hint="`Current Name: ${formData.name}`"
+  :hint="`Current Name: ${fullName}`"
   required
   :rules="[v => !!v || 'Name is required']"
 ></v-text-field>
 <v-text-field
   label="Email"
   prepend-inner-icon="mdi-email"
-  :value="formData.email"
+  :value="email"
   readonly
 
 ></v-text-field> </v-row>
@@ -43,10 +46,12 @@
     <v-btn
           class="pa-3 ma-2 font-weight-bold white--text"
           tile text block
+           :disabled="!formData.name"
           @click="updateName()"
           style="background-color: #4CAF50; color: white;"
         >
            Update Name
+           
 </v-btn>
 
       </v-col>
@@ -59,7 +64,7 @@
 v-model="oldPassword"
   required
   :rules="[v => !!v || 'Password is required']"
-  type="password"
+  type="text"
 ></v-text-field>
 
     <v-text-field
@@ -82,6 +87,7 @@ v-model="oldPassword"
     <v-btn
           class="pa-3 ma-2 font-weight-bold white--text"
           tile text block
+          :disabled=" !this.oldPassword || !this.formData.password"
           @click="updatePassword()"
           style="background-color: #4CAF50; color: white;"
         >
@@ -113,10 +119,17 @@ v-model="oldPassword"
 export default {
    data() {
     return {
-      oldPassword: '' 
+      oldPassword: '' ,
     }
     },
   computed: {
+    email(){
+  return localStorage.getItem('email');
+    },
+     fullName(){
+  return localStorage.getItem('name');
+    },
+  
     showAlert(){
  return this.$store.getters["authPageModule/getShowAlert"];
     },
@@ -133,6 +146,7 @@ export default {
   methods: {
    
     handleAlertClose() {
+
       // Method to invoke when the alert is closed
       console.log("Alert closed!");
         this.$store.commit("authPageModule/setShowAlert", false);
@@ -143,7 +157,7 @@ export default {
     },
 
     updateName() {
-      this.$store.dispatch("authPageModule/updateName", {name: this.formData.name,email:this.formData.email});
+      this.$store.dispatch("authPageModule/updateName", {name: this.formData.name,email:this.email});
     },
 
         updatePassword() {

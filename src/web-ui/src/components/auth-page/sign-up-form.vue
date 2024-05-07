@@ -10,25 +10,30 @@
       <img src="team.png" class="team-img pt-10" />
       <h1 class="pb-12 font-weight-bold">Create Account</h1>
       <v-text-field
-        placeholder="Username"
-        prepend-inner-icon="mdi-account"
+         ref="email" 
+        placeholder="Email"
+        prepend-inner-icon="mdi-email"
         filled
-        v-model="formData.username"
+         :rules="emailRules" 
+       
+        v-model="formData.email"
       ></v-text-field>
       <v-text-field
         placeholder="Password"
         prepend-inner-icon="mdi-lock"
         filled
+        :rules="passwordRules"
         v-model="formData.password"
         type="password"
       ></v-text-field>
       <v-btn
         color="info"
         block
-        dark
+        
         tile
         class="pa-6 font-weight-bold"
         elevation="0"
+         :disabled="!formData.email|| !formData.password"
         @click="saveformData()"
         >Sign Up</v-btn
       >
@@ -37,10 +42,22 @@
 </template>
 <script>
 export default {
+  data: () => {
+    return {
+   emailRules: [
+        v => !!v || 'Email is required',
+        v => /.+@.+\..+/.test(v) || 'Email must be valid', // Add email format validation rule
+      ],
+         passwordRules: [
+        v => !!v || 'Password is required',
+        v => (v && v.length >= 8) || 'Password must be at least 8 characters long',
+        v => (v && /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/.test(v)) || 'Password must contain at least one lowercase letter, one uppercase letter, and one number',
+      ],}},
   computed: {
     currentSignUpStep: {
       get: function () {
         return this.$store.getters["authPageModule/getCurrentSignUpStep"];
+         console.log("validate",this.$refs.email.validate())
       },
       set: function (newVal) {
         this.$store.commit("authPageModule/setCurrentSignUpStep", newVal);
@@ -54,11 +71,13 @@ export default {
         this.$store.commit("authPageModule/setFormData", this.formData);
       },
     },
+  
   },
   methods: {
     saveformData() {
       this.$store.commit("authPageModule/setFormData", this.formData);
       this.currentSignUpStep = 2;
+        
     },
   },
 };

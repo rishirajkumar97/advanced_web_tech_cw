@@ -10,14 +10,16 @@
       <img src="team.png" class="team-img pt-8" />
       <h1 class="pb-8 font-weight-bold">Sign in</h1>
       <v-text-field
-        prepend-inner-icon="mdi-account"
-        placeholder="Username"
+        prepend-inner-icon="mdi-email"
+        placeholder="Email"
         filled
+        :rules="emailRules" 
         v-model="username"
       ></v-text-field>
       <v-text-field
         prepend-inner-icon="mdi-lock"
         placeholder="Password"
+        :rules="passwordRules"
         type="password"
         v-model="password"
         filled
@@ -25,21 +27,16 @@
       <v-btn
         color="info"
         block
-        dark
+        
         tile
         class="pa-6 font-weight-bold"
         elevation="0"
+      :disabled="!username || !password"
         @click="login()"
         >Sign In</v-btn
       >
       <v-row class="justify-center py-10">
-        <span
-          :class="{
-            'text-secondary forgot-password-sm': $vuetify.breakpoint.smAndDown,
-            'text-secondary forgot-password-md': $vuetify.breakpoint.mdAndUp,
-          }"
-          >Forgot your password?</span
-        >
+       
       </v-row>
     </v-form>
   </div>
@@ -50,6 +47,15 @@ export default {
     return {
       username: null,
       password: null,
+       emailRules: [
+        v => !!v || 'Email is required',
+        v => /.+@.+\..+/.test(v) || 'Email must be valid', // Add email format validation rule
+      ],
+         passwordRules: [
+        v => !!v || 'Password is required',
+        v => (v && v.length >= 8) || 'Password must be at least 8 characters long',
+        v => (v && /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/.test(v)) || 'Password must contain at least one lowercase letter, one uppercase letter, and one number',
+      ],
     };
   },
   methods: {

@@ -4,25 +4,23 @@ import { state } from './state.js'
 
 export const actions = {
     loginAndSaveToken(context, { username, password }) {
-        context.commit('setShowAlert',true);
-        axios.post('https://meta-geography-243114.nw.r.appspot.com/login', { user:  { email: username, password: password } } ).then((response) => {
+    
+      axios.post('https://meta-geography-243114.nw.r.appspot.com/login', { user:  { email: username, password: password } } ).then((response) => {
             let token = response.data.status.data.token;
             localStorage.setItem('auth_token', token);  
-            state.formData.email = username;
-            state.formData.password = password;
-            state.formData.name = "the name";
-            context.commit('setShowAlert',true);
+            localStorage.setItem('email',username);
+            localStorage.setItem('password',password);
+            localStorage.setItem('name',response.data.status.data.user.name);
             router.push('/editprofile');
             window.location.reload();
-           
+         
 
         }).catch((error) => {
             console.log(error);
-            print("couldnot logged in")
             //will always redirect to profile np
-            router.push('/404');
+            window.alert(" Couldn't authenticate user, Check email or password!");
         });
-       
+      
     },
 
     logout(context) {
@@ -53,6 +51,7 @@ export const actions = {
     },
 
     updateName(context, { name, email }) {
+   
         console.log("Frm actions",name, email )
         const token = window.localStorage.getItem('auth_token');
         if (token) {
@@ -64,45 +63,65 @@ export const actions = {
          axios.put('https://meta-geography-243114.nw.r.appspot.com/update_name',//CHECK
          {
             name: name
+
          }, config).then((response) => {
   
-            this.$swal({
-              title: "Updated",
-              text: "Your profile was updated successfully",
-              icon: "success",
-              confirmButtonText: "Done",
-            });
+            localStorage.setItem('name',name);
+            window.alert("Your Name was updated successfully to (( " +name+" ))");
           })
           .catch((error) => {
-            this.$swal({
-              title: "Oops, Something went wrong ! ",
-              text: error.message,
-              icon: "warning",
-            });
+            console.log(error);
+            router.push('/404');
           });
         }
+      
+   
       },
        
 
-      updatePassword(context, { email, password,oldPassword }) {
-        console.log("Frm actions update Password",email, password, oldPassword)
+      updatePassword(context, { password,oldPassword }) {
+        console.log("Frm actions update Password", password, oldPassword)
       
-    //      this.axios.put('https://meta-geography-243114.nw.r.appspot.com/update',//CHECK
-    //      formData  ).then((response) => {
+        const token = window.localStorage.getItem('auth_token');
+        if (token) {
+            const config = {
+                headers: {
+                    Authorization: token // Set the authorization header
+                }
+            };
+         axios.put('https://meta-geography-243114.nw.r.appspot.com/update_password',//CHECK
+         {
+            current_password: oldPassword,
+            password: password,
+            password_confirmation: password
+         }, config).then((response) => {
   
-    //         this.$swal({
-    //           title: "Updated",
-    //           text: "Your profile was updated successfully",
-    //           icon: "success",
-    //           confirmButtonText: "Done",
-    //         });
-    //       })
-    //       .catch((error) => {
-    //         this.$swal({
-    //           title: "Oops, Something went wrong ! ",
-    //           text: error.message,
-    //           icon: "warning",
-    //         });
-    //       });
+            window.alert(" Your password was updated successfully");
+          })
+          .catch((error) => {
+            console.log(error);
+            window.alert(" Couldn't authenticate user, Check your current password!");
+           
+          });
+        }
+      },
+
+      signup(context) {
+       console.log("FormData", state.formData);
+    
+        axios.post('http://meta-geography-243114.nw.r.appspot.com/signup', { user:  
+        { email:"jawid@gmail.com3", password: "Test121212",name:"jj"} } ).then((response) => {
+        // { email: state.formData.email, password: state.formData.password,name:state.formData.name} } ).then((response) => {
+              router.push('/auth');
+              window.location.reload();
+              window.alert(" Your account was created successfully, You can login now");
+  
+          }).catch((error) => {
+              console.log(error);
+              //will always redirect to profile np
+              window.alert(" Couldn't signup" );
+            //   window.alert(" Couldn't signup" + response.data.status.message);
+          });
+        
       },
 };
