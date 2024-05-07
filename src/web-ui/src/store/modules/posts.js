@@ -1,5 +1,6 @@
 import appService from './../../app.service';
 
+
 const state = {
   posts: [],
   categoryId: 0,
@@ -33,6 +34,28 @@ const actions = {
       context.commit('setError', error);    // Set error state
     });;
   },
+
+
+//   updateChart (context, {selectedStock, selectedInterval}) {
+//     console.log("selectedStock,selectedInterval",selectedStock,selectedInterval)
+//   //   axios.get(`https://stock-api-service.white-flame-246305.nw.r.appspot.com/stocks/data?symbol=${selectedStock}&interval=${selectedInterval}&function=TIME_SERIES_INTRADAY`,
+//   axios.get('https://stock-api-service.white-flame-246305.nw.r.appspot.com/stocks/data?symbol=IBM&interval=5min&function=TIME_SERIES_INTRADAY',
+//     ).then((response) => {
+//     // let token = response.data.status.data.token;
+// console.log(response)
+//  return
+ 
+
+// }).catch((error) => {
+//     console.log(error);
+//     //will always redirect to profile np
+//     window.alert(" Couldn't update Chart, Internal Error");
+// }); 
+//   // 
+
+
+//   }
+
 };
 
 const getters = {
