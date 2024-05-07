@@ -16,34 +16,9 @@
       <v-text-field
         placeholder="First Name"
         filled
-        v-model="formData.firstName"
+        v-model="formData.name"
         prepend-inner-icon="mdi-account"
       ></v-text-field>
-      <v-text-field
-        placeholder="Last Name"
-        prepend-inner-icon="mdi-account"
-        filled
-        v-model="formData.lastName"
-      ></v-text-field>
-      <v-text-field
-        placeholder="Email"
-        prepend-inner-icon="mdi-email"
-        filled
-        v-model="formData.email"
-      ></v-text-field>
-      <v-text-field
-        placeholder="Adress"
-        prepend-inner-icon="mdi-map-marker"
-        filled
-        v-model="formData.address"
-      ></v-text-field>
-      <v-text-field
-        placeholder="Phone Number"
-        filled
-        prepend-inner-icon="mdi-phone"
-        v-model="formData.phoneNumber"
-      ></v-text-field>
-
       <v-row>
         <v-col cols="12" md="6">
           <v-btn
@@ -60,11 +35,12 @@
         <v-col cols="12" md="6"
           ><v-btn
             color="info"
-            dark
+            
             tile
             block
             class="pa-6 font-weight-bold"
             elevation="0"
+              :disabled="!formData.name"
             @click="saveFormData()"
             >Sign Up</v-btn
           ></v-col
@@ -99,7 +75,13 @@ export default {
   methods: {
     saveFormData() {
       this.$store.commit("authPageModule/setFormData", this.formData);
-      this.$router.push("/profile");
+ 
+      this.$store.dispatch("authPageModule/signup", {
+        username: this.username,
+        password: this.password,
+      });
+    
+      // this.$router.push("/profile");
     },
   },
 };

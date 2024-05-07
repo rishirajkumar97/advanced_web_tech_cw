@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://news-service-dot-meta-geography-243114.nw.r.appspot.com';
+axios.defaults.baseURL = 'https://news-service-dot-white-flame-246305.nw.r.appspot.com';
 axios.interceptors.request.use((config) => {
   if (typeof window === 'undefined') {
     return config;
   }
   const token = window.localStorage.getItem('auth_token');
-  if (config.url != 'https://meta-geography-243114.nw.r.appspot.com/login')
+  if (config.url != 'https://white-flame-246305.nw.r.appspot.com/login')
   {
     if (token) {
       const req = config;

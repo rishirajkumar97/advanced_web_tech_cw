@@ -1,7 +1,7 @@
 export const state = {
     currentSignUpStep: 1,
     isSignInPanelActive: false,
-    showAlert:false,
+    showAlert:true,
 
     formData: {
         password: null,
