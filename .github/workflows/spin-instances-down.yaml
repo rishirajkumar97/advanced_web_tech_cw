@@ -21,7 +21,7 @@ jobs:
         run: |
           gcloud auth configure-docker
           echo "Stopping all versions"
-          versions=$(gcloud app versions list --filter="SERVING_STATUS=SERVING" --format="value(version)")
+          versions=$(gcloud app versions list --filter="SERVING_STATUS=SERVING" --format="value(version.id)")
           for version in $versions; do
               echo "Stopping version $version"
               gcloud app versions stop $version --quiet
